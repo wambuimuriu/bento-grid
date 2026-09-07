@@ -11,7 +11,7 @@
   --black: hsl(0, 0%, 7%);
 
   --ff-body: "DM Sans", sans-serif;
-  --fs-body: 1.125rem; 
+  --fs-body: 1.125rem;
 
   --radius-card: 1.5rem;
   --gap: 1.25rem;
@@ -55,7 +55,7 @@ p {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gap);
-  max-width: 69.375rem; 
+  max-width: 69.375rem;
   margin-inline: auto;
 }
 
@@ -81,70 +81,110 @@ p {
   font-size: 1.25rem;
 }
 
-.bento-grid > article:nth-child(1) {
+.card-create {
   background-color: var(--yellow-100);
   color: var(--black);
 }
 
-.bento-grid > article:nth-child(1) p {
-  align-self: flex-start;
-  background-color: var(--yellow-500);
-  color: var(--black);
-  font-weight: 500;
-  padding: 0.6rem 1.25rem;
-  border-radius: 2rem;
-  margin-top: auto;
-}
-
-.bento-grid > article:nth-child(2) {
+.card-social {
   background-color: var(--purple-500);
   color: var(--white);
 }
 
-.bento-grid > article:nth-child(2) p {
+.card-social p {
   opacity: 0.85;
   font-size: 0.9rem;
 }
 
-.bento-grid > article:nth-child(3) {
+.card-manage {
   background-color: var(--white);
   color: var(--black);
   border: 1px solid hsl(0, 0%, 90%);
 }
 
-.bento-grid > article:nth-child(4) {
+.card-maintain {
   background-color: var(--yellow-500);
   color: var(--black);
 }
 
-.bento-grid > article:nth-child(5) {
+.card-schedule {
   background-color: var(--purple-100);
   color: var(--black);
 }
 
-.bento-grid > article:nth-child(5) p {
+.card-schedule p {
   font-size: 0.9rem;
   opacity: 0.75;
 }
 
-.bento-grid > article:nth-child(6) {
+.card-grow {
   background-color: var(--purple-500);
   color: var(--white);
 }
 
-.bento-grid > article:nth-child(7) {
+.card-percent {
   background-color: var(--white);
   color: var(--black);
   border: 1px solid hsl(0, 0%, 90%);
 }
 
-.bento-grid > article:nth-child(7) h2 {
+.card-percent h2 {
   font-size: 2rem;
 }
 
-.bento-grid > article:nth-child(8) {
+.card-write {
   background-color: var(--yellow-500);
   color: var(--black);
+}
+
+.card-create__img {
+  width: 10.5rem;
+  margin-top: auto;
+}
+
+.card-social__img {
+  width: 8rem;
+  margin-top: 0.25rem;
+}
+
+.card-manage__img {
+  width: 100%;
+  max-width: 22rem;
+  margin-top: auto;
+}
+
+.card-maintain__img {
+  width: 100%;
+  margin-top: auto;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card-schedule__img {
+  width: 100%;
+  margin-top: auto;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card-grow__img {
+  width: 60%;
+  max-width: 15rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem hsl(0, 0%, 0%, 0.15);
+}
+
+.card-percent__img {
+  width: 60%;
+  max-width: 12rem;
+  margin-top: auto;
+}
+
+.card-write__img {
+  width: 90%;
+  margin-top: auto;
+  align-self: center;
 }
 
 .attribution {
@@ -168,12 +208,25 @@ p {
       "write  percent grow    grow";
   }
 
-  .bento-grid > article:nth-child(1) { grid-area: create; }
-  .bento-grid > article:nth-child(2) { grid-area: social; }
-  .bento-grid > article:nth-child(3) { grid-area: manage; }
-  .bento-grid > article:nth-child(4) { grid-area: maintain; }
-  .bento-grid > article:nth-child(5) { grid-area: schedule; }
-  .bento-grid > article:nth-child(6) { grid-area: grow; }
-  .bento-grid > article:nth-child(7) { grid-area: percent; }
-  .bento-grid > article:nth-child(8) { grid-area: write; }
+  .card-grow {
+    padding-bottom: 6rem;
+  }
+
+  .card-grow__img {
+    position: absolute;
+    bottom: -0.5rem;
+    right: -0.5rem;
+    width: 65%;
+    max-width: 15rem;
+    margin-top: 0;
+  }
+
+  .card-create { grid-area: create; }
+  .card-social { grid-area: social; }
+  .card-manage { grid-area: manage; }
+  .card-maintain { grid-area: maintain; }
+  .card-schedule { grid-area: schedule; }
+  .card-grow { grid-area: grow; }
+  .card-percent { grid-area: percent; }
+  .card-write { grid-area: write; }
 }
