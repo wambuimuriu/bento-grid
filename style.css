@@ -33,10 +33,20 @@
   --black: hsl(0, 0%, 7%);
 
   --ff-body: "DM Sans", sans-serif;
-  --fs-body: 1.125rem;
+
+  /* Type scale — body copy fixed at 18px per style guide */
+  --fs-300: 0.875rem;  /* 14px — captions, chart labels */
+  --fs-400: 1.125rem;  /* 18px — body copy (spec) */
+  --fs-500: 1.25rem;   /* 20px — h3 */
+  --fs-600: 1.5rem;    /* 24px — h2 */
+  --fs-700: 2rem;      /* 32px — h1 / stat figure */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
 
   --radius-card: 1.5rem;
   --gap: 1.25rem;
+  --card-padding: 2rem;
 }
 
 *,
@@ -55,8 +65,8 @@ picture {
 
 body {
   font-family: var(--ff-body);
-  font-size: var(--fs-body);
-  font-weight: 400;
+  font-size: var(--fs-400);
+  font-weight: var(--fw-regular);
   color: var(--black);
   background-color: var(--white);
   padding: 1.5rem;
@@ -65,11 +75,19 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   line-height: 1.15;
 }
 
+h1 em,
+h2 em,
+h3 em {
+  font-style: italic;
+  font-weight: var(--fw-medium);
+}
+
 p {
+  font-size: var(--fs-400);
   line-height: 1.4;
 }
 
@@ -83,7 +101,7 @@ p {
 
 .bento-grid > article {
   border-radius: var(--radius-card);
-  padding: 2rem;
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -92,15 +110,15 @@ p {
 }
 
 .bento-grid > article h1 {
-  font-size: 1.75rem;
+  font-size: var(--fs-600);
 }
 
 .bento-grid > article h2 {
-  font-size: 1.5rem;
+  font-size: var(--fs-500);
 }
 
 .bento-grid > article h3 {
-  font-size: 1.25rem;
+  font-size: var(--fs-500);
 }
 
 .card-create {
@@ -115,7 +133,7 @@ p {
 
 .card-social p {
   opacity: 0.85;
-  font-size: 0.9rem;
+  font-size: var(--fs-300);
 }
 
 .card-manage {
@@ -135,7 +153,7 @@ p {
 }
 
 .card-schedule p {
-  font-size: 0.9rem;
+  font-size: var(--fs-300);
   opacity: 0.75;
 }
 
@@ -151,7 +169,7 @@ p {
 }
 
 .card-percent h2 {
-  font-size: 2rem;
+  font-size: var(--fs-700);
 }
 
 .card-write {
@@ -211,7 +229,7 @@ p {
 
 .attribution {
   text-align: center;
-  font-size: 0.8125rem;
+  font-size: var(--fs-300);
   margin-top: 2rem;
   color: hsl(0, 0%, 40%);
 }
@@ -221,9 +239,14 @@ p {
 }
 
 @media (min-width: 60rem) {
+  :root {
+    --fs-700: 2.5rem; /* 40px — hero heading gets larger on desktop */
+    --fs-600: 1.75rem;
+  }
+
   .bento-grid {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(3, minmax(9rem, auto));
     grid-template-areas:
       "create social  social  schedule"
       "create manage  maintain schedule"
