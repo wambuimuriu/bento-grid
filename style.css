@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,500&display=swap');
+
+:root {
+  --purple-100: hsl(254, 88%, 90%);
+  --purple-500: hsl(256, 67%, 59%);
+
+  --yellow-100: hsl(31, 66%, 93%);
+  --yellow-500: hsl(39, 100%, 71%);
+
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 7%);
+
+  --ff-body: "DM Sans", sans-serif;
+  --fs-body: 1.125rem; 
+
+  --radius-card: 1.5rem;
+  --gap: 1.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--black);
+  background-color: var(--white);
+  padding: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+p {
+  line-height: 1.4;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  max-width: 69.375rem; 
+  margin-inline: auto;
+}
+
+.bento-grid > article {
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.bento-grid > article h1 {
+  font-size: 1.75rem;
+}
+
+.bento-grid > article h2 {
+  font-size: 1.5rem;
+}
+
+.bento-grid > article h3 {
+  font-size: 1.25rem;
+}
+
+.bento-grid > article:nth-child(1) {
+  background-color: var(--yellow-100);
+  color: var(--black);
+}
+
+.bento-grid > article:nth-child(1) p {
+  align-self: flex-start;
+  background-color: var(--yellow-500);
+  color: var(--black);
+  font-weight: 500;
+  padding: 0.6rem 1.25rem;
+  border-radius: 2rem;
+  margin-top: auto;
+}
+
+.bento-grid > article:nth-child(2) {
+  background-color: var(--purple-500);
+  color: var(--white);
+}
+
+.bento-grid > article:nth-child(2) p {
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.bento-grid > article:nth-child(3) {
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid hsl(0, 0%, 90%);
+}
+
+.bento-grid > article:nth-child(4) {
+  background-color: var(--yellow-500);
+  color: var(--black);
+}
+
+.bento-grid > article:nth-child(5) {
+  background-color: var(--purple-100);
+  color: var(--black);
+}
+
+.bento-grid > article:nth-child(5) p {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.bento-grid > article:nth-child(6) {
+  background-color: var(--purple-500);
+  color: var(--white);
+}
+
+.bento-grid > article:nth-child(7) {
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid hsl(0, 0%, 90%);
+}
+
+.bento-grid > article:nth-child(7) h2 {
+  font-size: 2rem;
+}
+
+.bento-grid > article:nth-child(8) {
+  background-color: var(--yellow-500);
+  color: var(--black);
+}
+
+.attribution {
+  text-align: center;
+  font-size: 0.8125rem;
+  margin-top: 2rem;
+  color: hsl(0, 0%, 40%);
+}
+
+.attribution a {
+  color: var(--purple-500);
+}
+
+@media (min-width: 60rem) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      "create social  social  schedule"
+      "create manage  maintain schedule"
+      "write  percent grow    grow";
+  }
+
+  .bento-grid > article:nth-child(1) { grid-area: create; }
+  .bento-grid > article:nth-child(2) { grid-area: social; }
+  .bento-grid > article:nth-child(3) { grid-area: manage; }
+  .bento-grid > article:nth-child(4) { grid-area: maintain; }
+  .bento-grid > article:nth-child(5) { grid-area: schedule; }
+  .bento-grid > article:nth-child(6) { grid-area: grow; }
+  .bento-grid > article:nth-child(7) { grid-area: percent; }
+  .bento-grid > article:nth-child(8) { grid-area: write; }
+}
