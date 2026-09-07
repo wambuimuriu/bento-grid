@@ -1,24 +1,18 @@
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-Regular.ttf") format("truetype");
-  font-weight: 400;
+  src: url("./DMSans-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  font-weight: 100 1000;
   font-style: normal;
+  font-optical-sizing: auto;
   font-display: swap;
 }
 
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "DM Sans";
-  src: url("./DMSans-MediumItalic.ttf") format("truetype");
-  font-weight: 500;
+  src: url("./DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  font-weight: 100 1000;
   font-style: italic;
+  font-optical-sizing: auto;
   font-display: swap;
 }
 
@@ -34,12 +28,19 @@
 
   --ff-body: "DM Sans", sans-serif;
 
-  /* Type scale — body copy fixed at 18px per style guide */
-  --fs-300: 0.875rem;  /* 14px — captions, chart labels */
-  --fs-400: 1.125rem;  /* 18px — body copy (spec) */
-  --fs-500: 1.25rem;   /* 20px — h3 */
-  --fs-600: 1.5rem;    /* 24px — h2 */
-  --fs-700: 2rem;      /* 32px — h1 / stat figure */
+  /* Type scale — measured directly from desktop-design.jpg (1440px, 1:1 scale).
+     Sizes were calibrated by grid-searching size x optical-size against the
+     real DM Sans variable font until BOTH the rendered word width and the
+     cap-height matched the pixels measured in the design (matching cap-height
+     alone was misleading — DM Sans narrows at large optical sizes).
+     Mobile values are estimated (no mobile design file was provided) and
+     scale up to these exact desktop values at the 60rem breakpoint. */
+  --fs-footer: 0.875rem;      /* 14px — footer attribution */
+  --fs-body: 1.125rem;        /* 18px — confirmed exact match to spec */
+  --fs-caption-lg: 1.125rem;  /* mobile fallback for "Over 4,000 5-star reviews" */
+  --fs-card-heading: 1.75rem; /* mobile fallback for card h2/h3 */
+  --fs-hero: 1.875rem;        /* mobile fallback for hero h1 */
+  --fs-stat: 2.5rem;          /* mobile fallback for the >56% figure */
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -65,7 +66,7 @@ picture {
 
 body {
   font-family: var(--ff-body);
-  font-size: var(--fs-400);
+  font-size: var(--fs-body);
   font-weight: var(--fw-regular);
   color: var(--black);
   background-color: var(--white);
@@ -76,7 +77,7 @@ h1,
 h2,
 h3 {
   font-weight: var(--fw-medium);
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 h1 em,
@@ -86,8 +87,19 @@ h3 em {
   font-weight: var(--fw-medium);
 }
 
+/* Accent spans measured from the design: "10x" in yellow-500,
+   "quicker." in purple-500 + italic */
+.accent-yellow {
+  color: var(--yellow-500);
+}
+
+.accent-purple {
+  color: var(--purple-500);
+  font-style: italic;
+}
+
 p {
-  font-size: var(--fs-400);
+  font-size: var(--fs-body);
   line-height: 1.4;
 }
 
@@ -95,7 +107,7 @@ p {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gap);
-  max-width: 69.375rem;
+  max-width: 69.9375rem; /* 1119px — measured content width from the design */
   margin-inline: auto;
 }
 
@@ -110,14 +122,15 @@ p {
 }
 
 .bento-grid > article h1 {
-  font-size: var(--fs-700);   /* was fs-600 */
+  font-size: var(--fs-hero);
 }
 
 .bento-grid > article h2 {
-  font-size: var(--fs-600);   /* was fs-500 */
+  font-size: var(--fs-card-heading);
 }
+
 .bento-grid > article h3 {
-  font-size: var(--fs-500);
+  font-size: var(--fs-card-heading);
 }
 
 .card-create {
@@ -131,8 +144,7 @@ p {
 }
 
 .card-social p {
-  opacity: 0.85;
-  font-size: var(--fs-300);
+  font-size: var(--fs-caption-lg);
 }
 
 .card-manage {
@@ -152,8 +164,7 @@ p {
 }
 
 .card-schedule p {
-  font-size: var(--fs-300);
-  opacity: 0.75;
+  font-size: var(--fs-body);
 }
 
 .card-grow {
@@ -168,7 +179,7 @@ p {
 }
 
 .card-percent h2 {
-  font-size: var(--fs-700);
+  font-size: var(--fs-stat);
 }
 
 .card-write {
@@ -228,7 +239,7 @@ p {
 
 .attribution {
   text-align: center;
-  font-size: var(--fs-300);
+  font-size: var(--fs-footer);
   margin-top: 2rem;
   color: hsl(0, 0%, 40%);
 }
@@ -239,8 +250,13 @@ p {
 
 @media (min-width: 60rem) {
   :root {
-    --fs-700: 2.5rem; /* 40px — hero heading gets larger on desktop */
-    --fs-600: 1.75rem;
+    /* Values calibrated against desktop-design.jpg at 1440px using the
+       variable font (size + optical-size grid search matched against both
+       measured word-width and cap-height in the source pixels) */
+    --fs-hero: 3.625rem;         /* 58px */
+    --fs-card-heading: 2.1875rem; /* 35px */
+    --fs-caption-lg: 2rem;       /* 32px */
+    --fs-stat: 3.5rem;           /* 56px */
   }
 
   .bento-grid {
