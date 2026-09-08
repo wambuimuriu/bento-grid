@@ -28,19 +28,12 @@
 
   --ff-body: "DM Sans", sans-serif;
 
-  /* Type scale — measured directly from desktop-design.jpg (1440px, 1:1 scale).
-     Sizes were calibrated by grid-searching size x optical-size against the
-     real DM Sans variable font until BOTH the rendered word width and the
-     cap-height matched the pixels measured in the design (matching cap-height
-     alone was misleading — DM Sans narrows at large optical sizes).
-     Mobile values are estimated (no mobile design file was provided) and
-     scale up to these exact desktop values at the 60rem breakpoint. */
-  --fs-footer: 0.875rem;      /* 14px — footer attribution */
-  --fs-body: 1.125rem;        /* 18px — confirmed exact match to spec */
-  --fs-caption-lg: 1.125rem;  /* mobile fallback for "Over 4,000 5-star reviews" */
-  --fs-card-heading: 1.75rem; /* mobile fallback for card h2/h3 */
-  --fs-hero: 1.875rem;        /* mobile fallback for hero h1 */
-  --fs-stat: 2.5rem;          /* mobile fallback for the >56% figure */
+  --fs-footer: 0.875rem;
+  --fs-body: 1.125rem;
+  --fs-caption-lg: 1.125rem;
+  --fs-card-heading: 1.75rem;
+  --fs-hero: 1.875rem;
+  --fs-stat: 2.5rem;
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -87,8 +80,6 @@ h3 em {
   font-weight: var(--fw-medium);
 }
 
-/* Accent spans measured from the design: "10x" in yellow-500,
-   "quicker." in purple-500 + italic */
 .accent-yellow {
   color: var(--yellow-500);
 }
@@ -107,9 +98,24 @@ p {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gap);
-  max-width: 69.9375rem; /* 1119px — measured content width from the design */
+  max-width: 69.9375rem;
   margin-inline: auto;
 }
+
+/* Mobile stacking order — matches mobile-design.jpg. "order" only
+   controls visual order, so screen readers still read the DOM/HTML
+   order (create, social, manage...), which stays a sensible reading
+   sequence. This is also the fix the README calls out directly: the
+   two left-column desktop cards (create, write) move to the bottom
+   on mobile instead of the top. */
+.card-social    { order: 1; }
+.card-manage    { order: 2; }
+.card-maintain  { order: 3; }
+.card-schedule  { order: 4; }
+.card-grow      { order: 5; }
+.card-percent   { order: 6; }
+.card-create    { order: 7; }
+.card-write     { order: 8; }
 
 .bento-grid > article {
   border-radius: var(--radius-card);
@@ -141,6 +147,9 @@ p {
 .card-social {
   background-color: var(--purple-500);
   color: var(--white);
+  /* Design centers this card's content on mobile only */
+  align-items: center;
+  text-align: center;
 }
 
 .card-social p {
@@ -161,15 +170,27 @@ p {
 .card-schedule {
   background-color: var(--purple-100);
   color: var(--black);
+  /* Design centers the paragraph on mobile only; chart image needs to sit
+     between the heading and paragraph, but the HTML has p before img */
+  text-align: center;
 }
 
 .card-schedule p {
   font-size: var(--fs-body);
+  order: 2;
+}
+
+.card-schedule img {
+  order: 1;
 }
 
 .card-grow {
   background-color: var(--purple-500);
   color: var(--white);
+  /* Design shows the stats image before the heading on mobile too, and
+     centers everything; HTML has h2 before img so we reorder visually */
+  align-items: center;
+  text-align: center;
 }
 
 .card-percent {
@@ -201,6 +222,9 @@ p {
   width: 100%;
   max-width: 22rem;
   margin-top: auto;
+  /* Design shows this image above the heading; HTML has h2 first, so
+     reorder it visually while keeping reading order accessible */
+  order: -1;
 }
 
 .card-maintain__img {
@@ -223,6 +247,9 @@ p {
   margin-top: 1rem;
   border-radius: 1rem;
   box-shadow: 0 1rem 2rem hsl(0, 0%, 0%, 0.15);
+  /* Design shows the stats card before the heading on mobile; HTML has
+     h2 first, so reorder it visually */
+  order: -1;
 }
 
 .card-percent__img {
@@ -250,13 +277,10 @@ p {
 
 @media (min-width: 60rem) {
   :root {
-    /* Values calibrated against desktop-design.jpg at 1440px using the
-       variable font (size + optical-size grid search matched against both
-       measured word-width and cap-height in the source pixels) */
-    --fs-hero: 3.625rem;         /* 58px */
-    --fs-card-heading: 2.1875rem; /* 35px */
-    --fs-caption-lg: 2rem;       /* 32px */
-    --fs-stat: 3.5rem;           /* 56px */
+    --fs-hero: 3.625rem;
+    --fs-card-heading: 2.1875rem;
+    --fs-caption-lg: 2rem;
+    --fs-stat: 3.5rem;
   }
 
   .bento-grid {
@@ -268,17 +292,46 @@ p {
       "write  percent grow    grow";
   }
 
+  /* Reset the mobile-only visual reordering — grid-area placement below
+     positions every card explicitly, so "order" is no longer needed and
+     resetting it keeps focus/tab order predictable. */
+  .card-social,
+  .card-manage,
+  .card-maintain,
+  .card-schedule,
+  .card-grow,
+  .card-percent,
+  .card-create,
+  .card-write {
+    order: 0;
+  }
+
+  /* Desktop comp shows the stats image on the left and the heading on
+     the right, vertically centered — a row layout instead of the
+     mobile column stack. */
   .card-grow {
-    padding-bottom: 6rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    text-align: left;
+    padding-bottom: var(--card-padding);
   }
 
   .card-grow__img {
-    position: absolute;
-    bottom: -0.5rem;
-    right: -0.5rem;
-    width: 65%;
-    max-width: 15rem;
+    align-self: center;
+    width: 45%;
+    max-width: 14rem;
     margin-top: 0;
+  }
+
+  .card-social {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .card-schedule {
+    text-align: left;
   }
 
   .card-create { grid-area: create; }
