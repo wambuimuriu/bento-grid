@@ -17,31 +17,37 @@
 }
 
 :root {
-  --purple-100: hsl(254, 88%, 90%);
-  --purple-500: hsl(256, 67%, 59%);
-
-  --yellow-100: hsl(31, 66%, 93%);
-  --yellow-500: hsl(39, 100%, 71%);
-
-  --white: hsl(0, 0%, 100%);
-  --black: hsl(0, 0%, 7%);
+  /* Colors — friend's hex values (same colors as the style guide's HSL,
+     just written as hex) */
+  --purple-100: #dbd1fc;
+  --purple-500: #7551dc;
+  --yellow-100: #f9eee2;
+  --yellow-500: #ffcc6a;
+  --white: #ffffff;
+  --black: #121212;
+  --page-bg: #f6f5f6;
 
   --ff-body: "DM Sans", sans-serif;
 
+  /* Type scale — ported from friend's text-preset-1..4. She didn't share
+     her HTML, so the mapping below is my best-guess reading of which
+     preset applies to which element (flagged where used). Mobile values
+     are her <=524px overrides; desktop values are her un-overridden base
+     (she wrote her CSS desktop-first, so I'm folding her single <=888px
+     breakpoint into this project's one 60rem breakpoint). */
   --fs-footer: 0.875rem;
-  --fs-body: 1.125rem;
-  --fs-caption-lg: 1.125rem;
-  --fs-card-heading: 1.75rem;
-  --fs-hero: 1.875rem;
-  --fs-stat: 2.5rem;
+  --fs-body: 1.125rem;         /* preset-4, all breakpoints */
+  --fs-hero: 2.875rem;         /* preset-1 mobile */
+  --fs-card-heading: 2rem;     /* preset-2 mobile */
+  --fs-stat: 1.625rem;         /* preset-3 mobile */
 
   --fw-regular: 400;
   --fw-medium: 500;
 
-  --radius-card: 1.5rem;
-  --gap: 1.875rem; /* 30px — measured from the actual gutter between cards
-                      in desktop-design.jpg (was 20px, too tight) */
-  --card-padding: 2rem;
+  --radius-card: 10px; /* friend's exact value */
+  --gap: 2rem;         /* 32px - friend's --spacing-400 */
+  --card-padding-lg: 2rem;    /* 32px - friend's --spacing-400 */
+  --card-padding-sm: 1.5rem;  /* 24px - friend's --spacing-300 */
 }
 
 *,
@@ -63,7 +69,7 @@ body {
   font-size: var(--fs-body);
   font-weight: var(--fw-regular);
   color: var(--black);
-  background-color: var(--white);
+  background-color: var(--page-bg);
   padding: 1.5rem;
 }
 
@@ -71,7 +77,6 @@ h1,
 h2,
 h3 {
   font-weight: var(--fw-medium);
-  line-height: 1.1;
 }
 
 h1 em,
@@ -92,7 +97,7 @@ h3 em {
 
 p {
   font-size: var(--fs-body);
-  line-height: 1.4;
+  line-height: 1.11; /* preset-4 */
 }
 
 .bento-grid {
@@ -103,7 +108,7 @@ p {
   margin-inline: auto;
 }
 
-/* Mobile stacking order — matches mobile-design.jpg. "order" only
+/* Mobile stacking order - matches mobile-design.jpg. "order" only
    controls visual order, so screen readers still read the DOM/HTML
    order (create, social, manage...), which stays a sensible reading
    sequence. This is also the fix the README calls out directly: the
@@ -120,37 +125,48 @@ p {
 
 .bento-grid > article {
   border-radius: var(--radius-card);
-  padding: var(--card-padding);
+  padding: var(--card-padding-sm);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--card-padding-sm);
   overflow: hidden;
   position: relative;
+  /* friend's hover interaction */
+  transition: all 300ms;
 }
 
+.bento-grid > article:hover {
+  transform: translate(0, -5px);
+  box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* h1 = preset-1 (the hero heading only) */
 .bento-grid > article h1 {
   font-size: var(--fs-hero);
+  line-height: 0.935;
+  letter-spacing: -3px;
 }
 
+/* h2 = preset-2 (every other card heading) */
 .bento-grid > article h2 {
   font-size: var(--fs-card-heading);
+  line-height: 0.9;
+  letter-spacing: -2px;
 }
 
 .card-create {
   background-color: var(--yellow-100);
   color: var(--black);
+  padding: var(--card-padding-lg);
 }
 
 .card-social {
   background-color: var(--purple-500);
   color: var(--white);
+  padding: var(--card-padding-lg);
   /* Design centers this card's content on mobile only */
   align-items: center;
   text-align: center;
-}
-
-.card-social p {
-  font-size: var(--fs-caption-lg);
 }
 
 .card-manage {
@@ -167,13 +183,13 @@ p {
 .card-schedule {
   background-color: var(--purple-100);
   color: var(--black);
+  padding: var(--card-padding-lg);
   /* Design centers the paragraph on mobile only; chart image needs to sit
      between the heading and paragraph, but the HTML has p before img */
   text-align: center;
 }
 
 .card-schedule p {
-  font-size: var(--fs-body);
   order: 2;
 }
 
@@ -196,8 +212,11 @@ p {
   border: 1px solid hsl(0, 0%, 90%);
 }
 
+/* preset-3 - best-guess mapping: the big ">56%" stat figure */
 .card-percent h2 {
   font-size: var(--fs-stat);
+  line-height: 0.875;
+  letter-spacing: -2px;
 }
 
 .card-write {
@@ -243,9 +262,7 @@ p {
   max-width: 15rem;
   margin-top: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 1rem 2rem hsl(0, 0%, 0%, 0.15);
-  /* Design shows the stats card before the heading on mobile; HTML has
-     h2 first, so reorder it visually */
+  box-shadow: -9.78px 11.74px 24.45px 0 rgba(99, 26, 123, 0.05); /* friend's shadow */
   order: -1;
 }
 
@@ -274,16 +291,17 @@ p {
 
 @media (min-width: 60rem) {
   :root {
-    --fs-hero: 3.875rem; /* 62px — measured cap-height of "Social" against
-                             desktop-design.jpg; 58px undershot by ~4px */
-    --fs-card-heading: 2.1875rem; /* kept — measured closer to the design
-                                      than a 2.5rem alternative */
-    --fs-caption-lg: 2rem;
-    --fs-stat: 3.5rem;
+    --fs-hero: 3.875rem;      /* preset-1 desktop */
+    --fs-card-heading: 2.5rem; /* preset-2 desktop */
+    --fs-stat: 2rem;           /* preset-3 desktop */
   }
 
   .bento-grid {
     grid-template-columns: repeat(4, 1fr);
+    /* Friend's exact 247px/246px row heights clipped text once her larger
+       heading sizes were applied here, since her HTML/heading mapping
+       wasn't available to confirm which preset she used on which card.
+       Using flexible auto-sizing instead so content always has room. */
     grid-template-rows: repeat(3, minmax(9rem, auto));
     grid-template-areas:
       "create social  social  schedule"
@@ -291,7 +309,7 @@ p {
       "write  percent grow    grow";
   }
 
-  /* Reset the mobile-only visual reordering — grid-area placement below
+  /* Reset the mobile-only visual reordering - grid-area placement below
      positions every card explicitly, so "order" is no longer needed and
      resetting it keeps focus/tab order predictable. */
   .card-social,
@@ -306,7 +324,7 @@ p {
   }
 
   /* Desktop comp shows the stats image on the left and the heading on
-     the right, vertically centered — a row layout instead of the
+     the right, vertically centered - a row layout instead of the
      mobile column stack. */
   .card-grow {
     flex-direction: row;
@@ -314,7 +332,6 @@ p {
     justify-content: space-between;
     gap: 1.5rem;
     text-align: left;
-    padding-bottom: var(--card-padding);
   }
 
   .card-grow__img {
