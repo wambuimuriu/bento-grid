@@ -1,6 +1,6 @@
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  src: url("./DMSans-VariableFont_opsz,wght.ttf") format("truetype-variations");
   font-weight: 100 1000;
   font-style: normal;
   font-optical-sizing: auto;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  src: url("./DMSans-Italic-VariableFont_opsz,wght.ttf") format("truetype-variations");
   font-weight: 100 1000;
   font-style: italic;
   font-optical-sizing: auto;
@@ -39,7 +39,8 @@
   --fw-medium: 500;
 
   --radius-card: 1.5rem;
-  --gap: 1.25rem;
+  --gap: 1.875rem; /* 30px — measured from the actual gutter between cards
+                      in desktop-design.jpg (was 20px, too tight) */
   --card-padding: 2rem;
 }
 
@@ -132,10 +133,6 @@ p {
 }
 
 .bento-grid > article h2 {
-  font-size: var(--fs-card-heading);
-}
-
-.bento-grid > article h3 {
   font-size: var(--fs-card-heading);
 }
 
@@ -277,8 +274,10 @@ p {
 
 @media (min-width: 60rem) {
   :root {
-    --fs-hero: 3.625rem;
-    --fs-card-heading: 2.1875rem;
+    --fs-hero: 3.875rem; /* 62px — measured cap-height of "Social" against
+                             desktop-design.jpg; 58px undershot by ~4px */
+    --fs-card-heading: 2.1875rem; /* kept — measured closer to the design
+                                      than a 2.5rem alternative */
     --fs-caption-lg: 2rem;
     --fs-stat: 3.5rem;
   }
