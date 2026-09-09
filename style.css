@@ -29,17 +29,33 @@
 
   --ff-body: "DM Sans", sans-serif;
 
+<<<<<<< HEAD
+  /* Type scale — ported from friend's text-preset-1..4, now confirmed
+     against her actual HTML (not guessed):
+       preset-1 -> hero AND the ">56%" stat (same size as the hero!)
+       preset-2 -> create, write, grow-followers headings
+       preset-3 -> manage, maintain, schedule headings (smaller)
+       preset-4 -> all paragraphs, all breakpoints */
+=======
   /* Type scale — ported from friend's text-preset-1..4. She didn't share
      her HTML, so the mapping below is my best-guess reading of which
      preset applies to which element (flagged where used). Mobile values
      are her <=524px overrides; desktop values are her un-overridden base
      (she wrote her CSS desktop-first, so I'm folding her single <=888px
      breakpoint into this project's one 60rem breakpoint). */
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
   --fs-footer: 0.875rem;
+<<<<<<< HEAD
+  --fs-body: 1.125rem;           /* preset-4 */
+  --fs-hero: 2.875rem;           /* preset-1 mobile */
+  --fs-card-heading-lg: 2rem;    /* preset-2 mobile */
+  --fs-card-heading-sm: 1.625rem;/* preset-3 mobile */
+=======
   --fs-body: 1.125rem;         /* preset-4, all breakpoints */
   --fs-hero: 2.875rem;         /* preset-1 mobile */
   --fs-card-heading: 2rem;     /* preset-2 mobile */
   --fs-stat: 1.625rem;         /* preset-3 mobile */
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -135,6 +151,16 @@ p {
   transition: all 300ms;
 }
 
+<<<<<<< HEAD
+.bento-grid > article:hover {
+  transform: translate(0, -5px);
+  box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* h1 and the >56% stat = preset-1 (they're the same size in her file) */
+.bento-grid > article h1,
+.card-percent h2 {
+=======
 .bento-grid > article:hover {
   transform: translate(0, -5px);
   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
@@ -142,15 +168,35 @@ p {
 
 /* h1 = preset-1 (the hero heading only) */
 .bento-grid > article h1 {
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
   font-size: var(--fs-hero);
   line-height: 0.935;
   letter-spacing: -3px;
 }
 
+<<<<<<< HEAD
+/* preset-2 — create, write, grow-followers headings */
+.card-create h2,
+.card-write h2,
+.card-grow h2 {
+  font-size: var(--fs-card-heading-lg);
+  line-height: 0.9;
+  letter-spacing: -2px;
+=======
 /* h2 = preset-2 (every other card heading) */
 .bento-grid > article h2 {
   font-size: var(--fs-card-heading);
   line-height: 0.9;
+  letter-spacing: -2px;
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
+}
+
+/* preset-3 — manage, maintain, schedule headings (smaller) */
+.card-manage h2,
+.card-maintain h2,
+.card-schedule h2 {
+  font-size: var(--fs-card-heading-sm);
+  line-height: 0.875;
   letter-spacing: -2px;
 }
 
@@ -212,6 +258,8 @@ p {
   border: 1px solid hsl(0, 0%, 90%);
 }
 
+<<<<<<< HEAD
+=======
 /* preset-3 - best-guess mapping: the big ">56%" stat figure */
 .card-percent h2 {
   font-size: var(--fs-stat);
@@ -219,6 +267,7 @@ p {
   letter-spacing: -2px;
 }
 
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
 .card-write {
   background-color: var(--yellow-500);
   color: var(--black);
@@ -291,9 +340,15 @@ p {
 
 @media (min-width: 60rem) {
   :root {
+<<<<<<< HEAD
+    --fs-hero: 3.875rem;             /* preset-1 desktop */
+    --fs-card-heading-lg: 2.5rem;    /* preset-2 desktop */
+    --fs-card-heading-sm: 2rem;      /* preset-3 desktop */
+=======
     --fs-hero: 3.875rem;      /* preset-1 desktop */
     --fs-card-heading: 2.5rem; /* preset-2 desktop */
     --fs-stat: 2rem;           /* preset-3 desktop */
+>>>>>>> cf8aade04800b5fcfcbe10074c972c6da4b1232f
   }
 
   .bento-grid {
