@@ -342,8 +342,12 @@ p {
 
   /* Desktop comp shows the stats image on the left and the heading on
      the right, vertically centered - a row layout instead of the
-     mobile column stack. */
-  .card-grow {
+     mobile column stack.
+     NOTE: targeted as ".bento-grid > .card-grow" (not just ".card-grow")
+     because the base ".bento-grid > article" rule that sets
+     flex-direction: column has higher specificity than a single class
+     selector — without this, column always won regardless of this rule. */
+  .bento-grid > .card-grow {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
