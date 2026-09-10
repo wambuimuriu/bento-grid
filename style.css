@@ -1,6 +1,6 @@
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  src: url("./DMSans-VariableFont_opsz,wght.ttf") format("truetype-variations");
   font-weight: 100 1000;
   font-style: normal;
   font-optical-sizing: auto;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "DM Sans";
-  src: url("./DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  src: url("./DMSans-Italic-VariableFont_opsz,wght.ttf") format("truetype-variations");
   font-weight: 100 1000;
   font-style: italic;
   font-optical-sizing: auto;
@@ -17,6 +17,8 @@
 }
 
 :root {
+  /* Colors — friend's hex values (same colors as the style guide's HSL,
+     just written as hex) */
   --purple-100: #dbd1fc;
   --purple-500: #7551dc;
   --yellow-100: #f9eee2;
@@ -27,19 +29,29 @@
 
   --ff-body: "DM Sans", sans-serif;
 
+  /* Type scale — ported from friend's text-preset-1..4, now confirmed
+     against her actual HTML (not guessed):
+       preset-1 -> hero AND the ">56%" stat (same size as the hero!)
+       preset-2 -> create, write, grow-followers headings
+       preset-3 -> manage, maintain, schedule headings (smaller)
+       preset-4 -> all paragraphs, all breakpoints */
   --fs-footer: 0.875rem;
-  --fs-body: 1.125rem;
-  --fs-hero: 2.875rem;
-  --fs-card-heading-lg: 2rem;
-  --fs-card-heading-sm: 1.625rem;
+  --fs-body: 1.125rem;           /* preset-4 */
+  --fs-hero: 2.875rem;           /* preset-1 mobile */
+  --fs-card-heading-lg: 2rem;    /* preset-2 mobile */
+  --fs-card-heading-sm: 1.625rem;/* preset-3 mobile */
 
   --fw-regular: 400;
   --fw-medium: 500;
+  --fw-bold: 700; /* measured stem-width match for headings — see note below */
 
-  --radius-card: 10px;
-  --gap: 2rem;
-  --card-padding-lg: 2rem;
-  --card-padding-sm: 1.5rem;
+  --radius-card: 10px; /* friend's exact value */
+  --gap: 2rem;         /* 32px - friend's --spacing-400 */
+  --card-padding-lg: 2.5rem;  /* 40px - bumped from 32px; design's large
+                                  cards (hero, create, schedule) measured
+                                  noticeably more generous, though not as
+                                  precisely pinnable as the weight fix */
+  --card-padding-sm: 1.5rem;  /* 24px - measured close to accurate, kept */
 }
 
 *,
@@ -65,25 +77,26 @@ body {
   padding: 1.5rem;
 }
 
+/* The style guide (free tier) lists only weights 400/500, but measuring
+   the actual stem width of "Manage" against the JPG showed a ~4.5px
+   stroke at this size, which only matches weight 700 (500 measured at
+   ~3px — visibly thinner than the design). Trusting the pixels over the
+   incomplete style guide, per the README's own guidance on JPG designs. */
 h1,
 h2,
 h3 {
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-bold);
 }
 
 h1 em,
 h2 em,
 h3 em {
   font-style: italic;
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-bold);
 }
 
 .accent-yellow {
   color: var(--yellow-500);
-}
-
-.desktop-break {
-  display: none;
 }
 
 .accent-purple {
@@ -93,7 +106,7 @@ h3 em {
 
 p {
   font-size: var(--fs-body);
-  line-height: 1.11;
+  line-height: 1.11; /* preset-4 */
 }
 
 .bento-grid {
@@ -104,6 +117,12 @@ p {
   margin-inline: auto;
 }
 
+/* Mobile stacking order - matches mobile-design.jpg. "order" only
+   controls visual order, so screen readers still read the DOM/HTML
+   order (create, social, manage...), which stays a sensible reading
+   sequence. This is also the fix the README calls out directly: the
+   two left-column desktop cards (create, write) move to the bottom
+   on mobile instead of the top. */
 .card-social    { order: 1; }
 .card-manage    { order: 2; }
 .card-maintain  { order: 3; }
@@ -121,6 +140,7 @@ p {
   gap: var(--card-padding-sm);
   overflow: hidden;
   position: relative;
+  /* friend's hover interaction */
   transition: all 300ms;
 }
 
@@ -129,6 +149,7 @@ p {
   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.05);
 }
 
+/* h1 and the >56% stat = preset-1 (they're the same size in her file) */
 .bento-grid > article h1,
 .card-percent h2 {
   font-size: var(--fs-hero);
@@ -136,6 +157,7 @@ p {
   letter-spacing: -3px;
 }
 
+/* preset-2 — create, write, grow-followers headings */
 .card-create h2,
 .card-write h2,
 .card-grow h2 {
@@ -144,6 +166,7 @@ p {
   letter-spacing: -2px;
 }
 
+/* preset-3 — manage, maintain, schedule headings (smaller) */
 .card-manage h2,
 .card-maintain h2,
 .card-schedule h2 {
@@ -162,6 +185,7 @@ p {
   background-color: var(--purple-500);
   color: var(--white);
   padding: var(--card-padding-lg);
+  /* Design centers this card's content on mobile only */
   align-items: center;
   text-align: center;
 }
@@ -181,6 +205,8 @@ p {
   background-color: var(--purple-100);
   color: var(--black);
   padding: var(--card-padding-lg);
+  /* Design centers the paragraph on mobile only; chart image needs to sit
+     between the heading and paragraph, but the HTML has p before img */
   text-align: center;
 }
 
@@ -195,6 +221,8 @@ p {
 .card-grow {
   background-color: var(--purple-500);
   color: var(--white);
+  /* Design shows the stats image before the heading on mobile too, and
+     centers everything; HTML has h2 before img so we reorder visually */
   align-items: center;
   text-align: center;
 }
@@ -224,6 +252,8 @@ p {
   width: 100%;
   max-width: 22rem;
   margin-top: auto;
+  /* Design shows this image above the heading; HTML has h2 first, so
+     reorder it visually while keeping reading order accessible */
   order: -1;
 }
 
@@ -246,7 +276,7 @@ p {
   max-width: 15rem;
   margin-top: 1rem;
   border-radius: 1rem;
-  box-shadow: -9.78px 11.74px 24.45px 0 rgba(99, 26, 123, 0.05);
+  box-shadow: -9.78px 11.74px 24.45px 0 rgba(99, 26, 123, 0.05); /* friend's shadow */
   order: -1;
 }
 
@@ -274,18 +304,21 @@ p {
 }
 
 @media (min-width: 60rem) {
-  .desktop-break {
-    display: inline;
-  }
-
   :root {
-    --fs-hero: 3.875rem;
-    --fs-card-heading-lg: 2.5rem;
-    --fs-card-heading-sm: 2rem;
+    --fs-hero: 3.875rem; /* unchanged — already matched my own measurement */
+    /* Reverted: both variables collapse to one verified desktop size
+       instead of her preset-2/preset-3 split, per your request. Mobile
+       keeps her two-tier split (2rem / 1.625rem) untouched. */
+    --fs-card-heading-lg: 2.1875rem;
+    --fs-card-heading-sm: 2.1875rem;
   }
 
   .bento-grid {
     grid-template-columns: repeat(4, 1fr);
+    /* Friend's exact 247px/246px row heights clipped text once her larger
+       heading sizes were applied here, since her HTML/heading mapping
+       wasn't available to confirm which preset she used on which card.
+       Using flexible auto-sizing instead so content always has room. */
     grid-template-rows: repeat(3, minmax(9rem, auto));
     grid-template-areas:
       "create social  social  schedule"
@@ -293,6 +326,9 @@ p {
       "write  percent grow    grow";
   }
 
+  /* Reset the mobile-only visual reordering - grid-area placement below
+     positions every card explicitly, so "order" is no longer needed and
+     resetting it keeps focus/tab order predictable. */
   .card-social,
   .card-manage,
   .card-maintain,
@@ -304,6 +340,9 @@ p {
     order: 0;
   }
 
+  /* Desktop comp shows the stats image on the left and the heading on
+     the right, vertically centered - a row layout instead of the
+     mobile column stack. */
   .card-grow {
     flex-direction: row;
     align-items: center;
