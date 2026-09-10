@@ -266,7 +266,10 @@ p {
 
 .card-schedule__img {
   width: 100%;
-  margin-top: auto;
+  /* margin-top: auto removed — this card's content order is heading,
+     image, paragraph (not "pinned to bottom" like other cards), so auto
+     margin here just ate all the free space above the image instead of
+     letting the content sit together like the design shows */
   border-radius: 1rem;
   overflow: hidden;
 }
